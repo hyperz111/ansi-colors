@@ -1,6 +1,7 @@
 'use strict';
 
-import { Suite } from 'benchmark';
+import benchmark from 'benchmark';
+const { Suite } = benchmark;
 import chalk from 'chalk'
 import colors from '../index.js'
 const names = [
