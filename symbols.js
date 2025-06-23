@@ -1,9 +1,5 @@
 import process from "node:process";
 
-const isHyper = typeof process !== 'undefined' && process.env.TERM_PROGRAM === 'Hyper';
-const isWindows = typeof process !== 'undefined' && process.platform === 'win32';
-const isLinux = typeof process !== 'undefined' && process.platform === 'linux';
-
 const common = {
   ballotDisabled: '☒',
   ballotOff: '☐',
@@ -63,9 +59,4 @@ const other = Object.assign({}, common, {
   warning: '⚠'
 });
 
-// module.exports = (isWindows && !isHyper) ? windows : other;
-// Reflect.defineProperty(module.exports, 'common', { enumerable: false, value: common });
-// Reflect.defineProperty(module.exports, 'windows', { enumerable: false, value: windows });
-// Reflect.defineProperty(module.exports, 'other', { enumerable: false, value: other });
-
-export default (() => (isWindows && !isHyper) ? windows : other)()
+export default (() => ((process.platform === 'win32') && !(process.env.TERM_PROGRAM === 'Hyper')) ? windows : other)()

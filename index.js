@@ -183,6 +183,6 @@ const create = () => {
 
 const ansiColors = create()
 export default ansiColors
-// Taken from https://github.com/yargs/yargs-parser (ISC License)
+// From https://github.com/yargs/yargs-parser (ISC License)
 // special syntax to allow unqualified default export from CommonJS
 export { ansiColors as 'module.exports' };
