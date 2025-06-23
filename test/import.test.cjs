@@ -1,10 +1,6 @@
-require('mocha');
 const assert = require("node:assert");
 const colors = require('../index.js');
 
-describe('CommonJS import', () => {
-  it(`should 'colors', NOT 'colors.default'`, () => {
-    assert.equal(typeof colors, 'object');
-    assert.equal(typeof colors.default, 'undefined');
-  })
-})
+console.log('CommonJS import')
+console.log(assert.strictEqual(typeof colors, 'object') === undefined)
+console.log(assert.strictEqual(typeof colors.default, 'undefined') === undefined)
