@@ -1,22 +1,15 @@
-import process from "node:process";
-import symbols from "./symbols.js";
+import { env, stdout } from 'node:process';
+import symbols from './symbols.js';
 
-const isObject = val => val !== null && typeof val === 'object' && !Array.isArray(val);
+const isObj = val => Object.prototype.toString.call(val) === '[object Object]';
 
 /* eslint-disable no-control-regex */
 // this is a modified version of https://github.com/chalk/ansi-regex (MIT License)
 const ANSI_REGEX = /[\u001b\u009b][[\]#;?()]*(?:(?:(?:[^\W_]*;?[^\W_]*)\u0007)|(?:(?:[0-9]{1,4}(;[0-9]{0,4})*)?[~0-9=<>cf-nqrtyA-PRZ]))/g;
 
-const hasColor = () => {
-  if (typeof process !== 'undefined') {
-    return process.env.FORCE_COLOR !== '0';
-  }
-  return false;
-};
-
 const create = () => {
   const colors = {
-    enabled: hasColor(),
+    enabled: env.FORCE_COLOR !== '0' && stdout.isTTY,
     visible: true,
     styles: {},
     keys: {}
@@ -157,7 +150,7 @@ const create = () => {
   };
 
   colors.theme = custom => {
-    if (!isObject(custom)) throw new TypeError('Expected theme to be an object');
+    if (!isObj(custom)) throw new TypeError('Expected theme to be an object');
     for (let name of Object.keys(custom)) {
       colors.alias(name, custom[name]);
     }
@@ -181,8 +174,10 @@ const create = () => {
   return colors;
 };
 
-const ansiColors = create()
-export default ansiColors
+const ansiColors = create();
+ansiColors.create = create;
+
+export default ansiColors;
 // From https://github.com/yargs/yargs-parser (ISC License)
 // special syntax to allow unqualified default export from CommonJS
 export { ansiColors as 'module.exports' };

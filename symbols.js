@@ -1,4 +1,8 @@
-import process from "node:process";
+import { platform, env } from "node:process";
+
+const isHyper = env.TERM_PROGRAM === 'Hyper';
+const isWindows = platform === 'win32';
+const isLinux = platform === 'linux';
 
 const common = {
   ballotDisabled: '☒',
@@ -59,4 +63,4 @@ const other = Object.assign({}, common, {
   warning: '⚠'
 });
 
-export default (() => ((process.platform === 'win32') && !(process.env.TERM_PROGRAM === 'Hyper')) ? windows : other)()
+export default (() => (isWindows && !isHyper) ? windows : other)()
