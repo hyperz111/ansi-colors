@@ -1,4 +1,5 @@
-'use strict';
+import process from "node:process";
+import symbols from "./symbols.js";
 
 const isObject = val => val !== null && typeof val === 'object' && !Array.isArray(val);
 
@@ -175,10 +176,13 @@ const create = () => {
   colors.none = colors.clear = colors.noop;
 
   colors.stripColor = colors.unstyle;
-  colors.symbols = require('./symbols');
+  colors.symbols = symbols;
   colors.define = define;
   return colors;
 };
 
-module.exports = create();
-module.exports.create = create;
+const ansiColors = create()
+export default ansiColors
+// Taken from https://github.com/yargs/yargs-parser (ISC License)
+// special syntax to allow unqualified default export from CommonJS
+export { ansiColors as 'module.exports' };

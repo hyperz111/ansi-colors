@@ -1,8 +1,8 @@
 'use strict';
 
-const { Suite } = require('benchmark');
-const chalk = require('chalk');
-const colors = require('..');
+import { Suite } from 'benchmark';
+import chalk from 'chalk'
+import colors from '../index.js'
 const names = [
   'reset',
   'bold',

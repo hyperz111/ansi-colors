@@ -1,9 +1,7 @@
-'use strict';
-
-require('mocha');
-const assert = require('assert');
-const decache = require('decache');
-const colors = require('./');
+import 'mocha'
+import assert from "node:assert";
+import decache from "decache";
+import colors from '../index.js'
 
 describe('ansi-colors', () => {
   it('should wrap a string with ansi codes:', () => {
